@@ -1,4 +1,4 @@
-package com.criminalintent;
+package com.criminalintent.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.criminalintent.activity.CrimePagerActivity;
+import com.criminalintent.R;
 import com.criminalintent.model.Crime;
 import com.criminalintent.model.CrimeLab;
 

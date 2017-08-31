@@ -1,4 +1,4 @@
-package com.criminalintent;
+package com.criminalintent.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 
+import com.criminalintent.R;
+import com.criminalintent.fragment.CrimeFragment;
 import com.criminalintent.model.Crime;
 import com.criminalintent.model.CrimeLab;
 
