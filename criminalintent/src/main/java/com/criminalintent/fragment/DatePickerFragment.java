@@ -1,4 +1,4 @@
-package com.criminalintent;
+package com.criminalintent.fragment;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -11,6 +11,8 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.DatePicker;
+
+import com.criminalintent.R;
 
 import java.util.Calendar;
 import java.util.Date;

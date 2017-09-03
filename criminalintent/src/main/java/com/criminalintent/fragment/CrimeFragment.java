@@ -1,4 +1,4 @@
-package com.criminalintent;
+package com.criminalintent.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 
+import com.criminalintent.R;
 import com.criminalintent.model.Crime;
 import com.criminalintent.model.CrimeLab;
 

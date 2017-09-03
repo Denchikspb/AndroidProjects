@@ -1,15 +1,17 @@
-package com.criminalintent;
+package com.criminalintent.activity;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
 
+import com.criminalintent.R;
+import com.criminalintent.fragment.CrimeFragment;
 import com.criminalintent.model.Crime;
 import com.criminalintent.model.CrimeLab;
 
@@ -20,7 +22,7 @@ import java.util.UUID;
  * Created by Денис on 28.08.2017.
  */
 
-public class CrimePagerActivity extends FragmentActivity {
+public class CrimePagerActivity extends AppCompatActivity {
 
     private static final String EXTRA_CRIME_ID = "criminalintent_crime_id";
 
