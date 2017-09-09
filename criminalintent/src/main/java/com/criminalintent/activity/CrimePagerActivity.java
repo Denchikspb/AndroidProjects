@@ -13,7 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.criminalintent.R;
 import com.criminalintent.fragment.CrimeFragment;
 import com.criminalintent.model.Crime;
-import com.criminalintent.model.CrimeLab;
+import com.criminalintent.database.CrimeLab;
 
 import java.util.List;
 import java.util.UUID;

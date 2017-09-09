@@ -1,15 +1,15 @@
-package com.criminalintent.model;
+package com.criminalintent.database;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Environment;
 
-import com.criminalintent.database.CrimeBaseHelper;
-import com.criminalintent.database.CrimeCursorWrapper;
-import com.criminalintent.database.CrimeDBSchema;
 import com.criminalintent.database.CrimeDBSchema.CrimeTable;
+import com.criminalintent.model.Crime;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -75,6 +75,16 @@ public class CrimeLab {
         } finally {
             cursor.close();
         }
+    }
+
+    public File getPhotoFile(Crime crime){
+        File externalFilesDir = mContext.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+
+        if (externalFilesDir == null){
+            return null;
+        }
+
+        return new File(externalFilesDir, crime.getPhotoFileName());
     }
 
     public void updateCrime(Crime crime) {

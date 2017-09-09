@@ -19,7 +19,7 @@ import android.widget.TextView;
 import com.criminalintent.activity.CrimePagerActivity;
 import com.criminalintent.R;
 import com.criminalintent.model.Crime;
-import com.criminalintent.model.CrimeLab;
+import com.criminalintent.database.CrimeLab;
 
 import java.util.List;
 
