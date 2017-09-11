@@ -48,6 +48,7 @@ public class CrimeFragment extends Fragment {
     private Button mSuspectButton;
     private ImageButton mPhotoButton;
     private ImageView mPhotoView;
+    private CallBacks mCallBacks;
 
     private static final String AGR_CRIME_ID = "crime_id";
     private static final String DIALOG_DATE = "DialogDate";
@@ -56,6 +57,10 @@ public class CrimeFragment extends Fragment {
     private static final int REQUEST_CONTACT = 1;
     private static final int REQUEST_PHOTO = 2;
 
+    public interface CallBacks {
+        void onCrimeUpdate(Crime crime);
+    }
+
     public static CrimeFragment newInstance(UUID crimeId) {
         Bundle args = new Bundle();
         args.putSerializable(AGR_CRIME_ID, crimeId);
@@ -63,6 +68,12 @@ public class CrimeFragment extends Fragment {
         CrimeFragment fragment = new CrimeFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        mCallBacks = (CallBacks) activity;
     }
 
     @Override
@@ -79,6 +90,12 @@ public class CrimeFragment extends Fragment {
         super.onPause();
 
         CrimeLab.get(getActivity()).updateCrime(mCrime);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mCallBacks = null;
     }
 
     @Nullable
@@ -115,7 +132,7 @@ public class CrimeFragment extends Fragment {
                 captureImage.resolveActivity(packageManager) != null;
         mPhotoButton.setEnabled(canTakePhoto);
 
-        if(canTakePhoto){
+        if (canTakePhoto) {
             Uri uri = Uri.fromFile(mPhotoFile);
             captureImage.putExtra(MediaStore.EXTRA_OUTPUT, uri);
         }
@@ -142,6 +159,7 @@ public class CrimeFragment extends Fragment {
         if (requestCode == REQUEST_DATE) {
             Date date = (Date) data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
             mCrime.setDate(date);
+            updateCrime();
             updateDate();
         } else if (requestCode == REQUEST_CONTACT && data != null) {
             Uri contactUri = data.getData();
@@ -161,13 +179,20 @@ public class CrimeFragment extends Fragment {
                 c.moveToFirst();
                 String suspect = c.getString(0);
                 mCrime.setSuspect(suspect);
+                updateCrime();
                 mSuspectButton.setText(suspect);
             } finally {
                 c.close();
             }
-        } else if(requestCode == REQUEST_PHOTO){
+        } else if (requestCode == REQUEST_PHOTO) {
+            updateCrime();
             updatePhotoView();
         }
+    }
+
+    private void updateCrime() {
+        CrimeLab.get(getActivity()).updateCrime(mCrime);
+        mCallBacks.onCrimeUpdate(mCrime);
     }
 
     private void updateDate() {
@@ -200,8 +225,8 @@ public class CrimeFragment extends Fragment {
         return report;
     }
 
-    private void updatePhotoView(){
-        if(mPhotoFile == null || !mPhotoFile.exists()){
+    private void updatePhotoView() {
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
             mPhotoView.setImageDrawable(null);
         } else {
             Bitmap bitmap = PictureUtils.getScaledBitmap(mPhotoFile.getPath(), getActivity());
@@ -219,6 +244,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 mCrime.setTitle(charSequence.toString());
+                updateCrime();
             }
 
             @Override
@@ -240,6 +266,7 @@ public class CrimeFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mCrime.setSolved(b);
+                updateCrime();
             }
         });
 
